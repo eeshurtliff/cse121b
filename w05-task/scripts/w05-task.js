@@ -1,21 +1,26 @@
 /* W05: Programming Tasks */
 
 /* Declare and initialize global variables */
-const templesElement = document.querySelector("#temples");
+const templesElement = document.getElementById("temples");
 let templeList = [];
 
 /* async displayTemples Function */
 const displayTemples = (temples) => {
+    const templesElement = document.getElementById("temples");
     temples.forEach(function(temple){
-        let createElement = document.querySelector("article");
-        let templeNameElement = document.querySelector("h3");
-        templeNameElement = temple.templeName;
-        let imageElement = document.querySelector("img");
+        console.log(temple)
+        let articleElement = document.createElement("article");
+
+        let templeNameElement = document.createElement("h3");
+        templeNameElement.textContent = temple.templeName;
+
+        let imageElement = document.createElement("img");
         imageElement.src = temple.imageUrl;
         imageElement.alt = temple.location;
-        createElement.appendChild(templeNameElement);
-        createElement.appendChild(imageElement);
-        templesElement.appendChild(article);
+
+        articleElement.appendChild(templeNameElement);
+        articleElement.appendChild(imageElement);
+        templesElement.appendChild(articleElement);
     })
 }
 
@@ -48,14 +53,14 @@ const sortBy = function(temples){
 
             break;
 
-        case "nonutah":
-            filteredTemples = temples.filter(temple => !temple.location.includes("Utah"));
-            displayTemples.filter(filteredTemples);
+        case "notutah":
+            filteredTemples = temples.filter(temple => !temple.location.toLowerCase().includes("Utah"));
+            displayTemples(filteredTemples);
             break;
         
         case "older":
-            filteredTemples = temples.filter(temple => temple.dedicated >= new Date (1950, 0, 1));
-            displayTemples.filter(filteredTemples);
+            filteredTemples = temples.filter(temple => new Date(temple.dedicated) >= new Date(1950, 0, 1));
+            displayTemples(filteredTemples);
             break;
 
         case "all":
